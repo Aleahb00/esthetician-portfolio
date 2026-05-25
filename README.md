@@ -1,89 +1,84 @@
-# Esthetician Portfolio (Demo)
+# Esthetician Portfolio Demo
 
-This is a small, fake portfolio site curated for an esthetician showcasing hair (braids) and nails services. It's a demo project used to illustrate layout, styling, and a few interactive UI elements.
+This repository contains a fictional portfolio site for an esthetician who offers braid styling and nail services. The project is meant to show a complete small-business style website with a polished layout, animated details, service information, and a simple gallery.
 
 ## Features
 
-- Hero with animated sparkles and a subtle pink text "shine" effect
-- Right-side certifications carousel inside the hero
-- Auto-rotating gallery carousel (shows 3 items at a time; hover to pause)
-- Services, pricing list, and contact / booking CTA in the footer
-- All assets are local under `src/assets` (placeholder images and SVG certificates)
+- A hero section with the business name, a short introduction, and a booking link
+- A small certificates carousel on the hero card
+- A rotating gallery of braid and nail photos that pauses on hover
+- Service cards and pricing information
+- A footer with contact and social links
+
+## How the Site Works
+
+The site is a single-page React app. Each section is stacked vertically and linked with anchors, so the page feels like a smooth brochure-style portfolio.
+
+The gallery automatically rotates through images every few seconds. When the cursor moves over the gallery, the rotation pauses so the images are easier to view.
+
+The certificate area in the hero also rotates automatically. This gives the page a little movement without making it hard to read.
+
+The styling is handled in one main CSS file. That file controls the color palette, layout, card spacing, animations, and responsive behavior for smaller screens.
 
 ## Tech Stack
 
-- Vite (dev tooling and build)
-- React (UI)
-- Plain CSS (single stylesheet: `src/index.css`)
-- Node / npm (package manager)
+- React
+- Vite
+- Plain CSS
+- Node.js and npm
 
-## Getting Started (Local Development)
+## Project Files
 
-1. Install dependencies:
+- `src/App.jsx` - main page content, carousels, and section layout
+- `src/index.css` - all page styling, animation, and responsive layout rules
+- `src/assets/` - gallery photos and certificate images used on the page
+- `vite.config.js` - build configuration for GitHub Pages
+- `package.json` - scripts for development, build, and deployment
+
+## Local Preview
+
+To open the project on a computer:
 
 ```bash
 npm install
-```
-
-2. Start the dev server:
-
-```bash
 npm run dev
 ```
 
-3. Open the app at the URL printed by Vite (usually `http://localhost:5173`).
+Then open the local address shown by Vite in the browser.
 
-## Build & Preview
+## Build
 
-Create a production build:
+To create the production version:
 
 ```bash
 npm run build
 ```
 
-Preview the production build locally:
+To preview the production build locally:
 
 ```bash
 npm run preview
 ```
 
-## Project Structure (important files)
+## GitHub Pages Deployment
 
-- `index.html` — app entry
-- `src/main.jsx` — React bootstrap
-- `src/App.jsx` — main application UI (hero, gallery, certificates, pricing)
-- `src/index.css` — global styles, animations, and theme
-- `src/assets/` — images and certificate SVGs used in the demo
+The project is set up for GitHub Pages. The deployed site is published from the `gh-pages` branch.
 
-## Deployment
+Deployment flow:
 
-This project is set up for a GitHub Pages project site, so the deployed URL is a subpath like `https://<your-username>.github.io/<repo-name>/`.
+1. `npm run build` creates the final site files in `dist/`.
+2. `vite.config.js` sets the base path so the app works at the GitHub Pages URL.
+3. `npm run deploy` builds the project and pushes the `dist/` folder to the `gh-pages` branch.
+4. GitHub Pages serves the files from that branch.
 
-### How deployment works in plain English
+Important deployment files:
 
-1. `npm run build` creates the production site in `dist/`.
-2. `vite.config.js` sets the base path to `/esthetician-portfolio/` so the images, CSS, and JavaScript load from the GitHub Pages URL instead of the site root.
-3. `npm run deploy` runs the build and then pushes the `dist/` folder to the `gh-pages` branch using `git subtree`.
-4. GitHub Pages reads the `gh-pages` branch and serves the files as the live site.
+- `package.json` - includes the deploy script
+- `vite.config.js` - sets the GitHub Pages path
+- `.gitignore` - keeps generated files like `node_modules/` and `dist/` out of normal commits
+- `.github/workflows/deploy.yml` - optional automated deployment workflow
 
-### Files involved in deployment
+## Notes
 
-- `package.json` - contains the `build`, `predeploy`, and `deploy` scripts.
-- `vite.config.js` - sets the GitHub Pages base path.
-- `.gitignore` - keeps `node_modules/` and `dist/` out of normal commits.
-- `.github/workflows/deploy.yml` - optional GitHub Actions workflow for CI-based deployment.
+- This is a demo portfolio, so the content and photos are placeholder material.
 
-### Manual deploy command
-
-```bash
-npm run deploy
-```
-
-### Important note
-
-If you rename the repository, update the `base` value in `vite.config.js` to match the new repo name. That value must stay in sync with the GitHub Pages path.
-
-## Notes & Licensing
-
-- This repository contains demo content and placeholder images for a fictional esthetician portfolio. Replace images and text with real assets before publishing.
-- No license is specified; add one if you intend to publish or share the project.
