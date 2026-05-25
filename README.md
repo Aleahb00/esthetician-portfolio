@@ -57,77 +57,31 @@ npm run preview
 
 ## Deployment
 
-This is a static frontend app — it can be deployed to any static host (Netlify, Vercel, GitHub Pages, etc.). Build artifacts are produced in the `dist/` folder after `npm run build`.
+This project is set up for a GitHub Pages project site, so the deployed URL is a subpath like `https://<your-username>.github.io/<repo-name>/`.
 
-### Deploy to GitHub Pages (quick)
+### How deployment works in plain English
 
-1. Install the `gh-pages` package as a dev dependency:
+1. `npm run build` creates the production site in `dist/`.
+2. `vite.config.js` sets the base path to `/esthetician-portfolio/` so the images, CSS, and JavaScript load from the GitHub Pages URL instead of the site root.
+3. `npm run deploy` runs the build and then pushes the `dist/` folder to the `gh-pages` branch using `git subtree`.
+4. GitHub Pages reads the `gh-pages` branch and serves the files as the live site.
 
-```bash
-npm install --save-dev gh-pages
-```
+### Files involved in deployment
 
-2. Add these scripts to `package.json` (example):
+- `package.json` - contains the `build`, `predeploy`, and `deploy` scripts.
+- `vite.config.js` - sets the GitHub Pages base path.
+- `.gitignore` - keeps `node_modules/` and `dist/` out of normal commits.
+- `.github/workflows/deploy.yml` - optional GitHub Actions workflow for CI-based deployment.
 
-```json
-"scripts": {
-	"predeploy": "npm run build",
-	"deploy": "gh-pages -d dist",
-	"dev": "vite",
-	"build": "vite build",
-	"preview": "vite preview"
-}
-```
-
-3. Optionally set the `homepage` field in `package.json` for project pages:
-
-```json
-"homepage": "https://<your-username>.github.io/<repo-name>/"
-```
-
-4. Run the deploy script:
+### Manual deploy command
 
 ```bash
 npm run deploy
 ```
 
-Notes:
-- For a user/organization site (username.github.io) use `"homepage": "https://<your-username>.github.io/"` and deploy to the repository named `username.github.io`.
-- If your app is served from a sub-path (repo pages), set the `homepage` above so Vite resolves asset paths correctly.
+### Important note
 
-### Deploy with GitHub Actions (recommended for CI)
-
-Create a workflow file at `.github/workflows/deploy.yml` that builds and deploys the `dist/` folder to GitHub Pages. Example (minimal):
-
-```yaml
-name: deploy
-
-on:
-	push:
-		branches: [ main ]
-
-jobs:
-	build-and-deploy:
-		runs-on: ubuntu-latest
-		steps:
-			- uses: actions/checkout@v4
-			- uses: pnpm/action-setup@v2
-				with:
-					version: 8
-			- name: Install dependencies
-				run: npm install
-			- name: Build
-				run: npm run build
-			- name: Deploy to GitHub Pages
-				uses: peaceiris/actions-gh-pages@v3
-				with:
-					github_token: ${{ secrets.GITHUB_TOKEN }}
-					publish_dir: ./dist
-```
-
-Replace `main` with your default branch name if different.
-
-If you'd like, I can add the `gh-pages` script to `package.json` and/or create the GitHub Actions workflow file for you.
+If you rename the repository, update the `base` value in `vite.config.js` to match the new repo name. That value must stay in sync with the GitHub Pages path.
 
 ## Notes & Licensing
 
